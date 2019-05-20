@@ -6,6 +6,7 @@
     <title>智慧园区</title>
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/index.min.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
 </head>
 <body>
 <nav class="nav clearfix">
@@ -27,7 +28,7 @@
     </article>
 </section>
 <main class="part area clearfix" id="01">
-    <div class="floatLeft" data-scroll-reveal='enter from the right after 0s, move 100px, over 1s'>
+    <div class="floatLeft" data-scroll-reveal='enter from the left after 0s, move 100px, over 1s'>
         <h3 class="title">智慧园区概述</h3>
         <main class="content">
             <p>
@@ -44,7 +45,7 @@
             </p>
         </main>
     </div>
-    <div class="floatRight" data-scroll-reveal='enter from the left after 0s, move 100px, over 1s'></div>
+    <div class="floatRight" data-scroll-reveal='enter from the right after 0s, move 100px, over 1s'></div>
 </main>
 <main class="solution area clearfix" id="02">
     <div class="title" data-scroll-reveal='enter from the bottom after 0s, move 100px, over 1s'>解决方案</div>
@@ -91,17 +92,18 @@
         </li>
     </ul>
 </main>
-<main class="caseShow area" id="03" data-scroll-reveal='enter from the left after 0s, move 100px, over 1s'>
+<main class="caseShow area" id="03" data-scroll-reveal='enter from the bottom after 0s, move 100px, over 1s'>
     <h3 class="title">案例展示</h3>
     <div class="subhead">智慧园区就是运用信息和通信技术手段感测、分析、整合园区运行核心系统的各项关键信息</div>
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+    <div id="certify">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="img/caseShowPic01.png" style="width: 90%;margin:20px auto;display: block;"/></div>
+                <div class="swiper-slide"><img src="img/caseShowPic02.png" style="width: 90%;margin:20px auto;display: block;"/></div>
+                <div class="swiper-slide"><img src="img/caseShowPic03.png" style="width: 90%;margin:20px auto;display: block;"/></div>
+            </div>
+        </div>
+    </div>
     <p class="title">某智慧园区管理系统</p>
     <p class="subhead">运用信息和通信技术手段感测、分析、整合园区运行核心系统</p>
 </main>
@@ -230,7 +232,7 @@
             </div>
         </div>
     </div>
-        <div class="bottom" data-scroll-reveal='enter from the bottom after 0s, move 100px, over 1s'>
+    <div class="bottom" data-scroll-reveal='enter from the bottom after 0s, move 100px, over 1s'>
         <div class="area">
             <div class="left">
                 <h1>
@@ -288,6 +290,7 @@
 </html>
 <script src="js/jQuery.min.js"></script>
 <script src="js/scrollReveal.js"></script>
+<script src="js/swiper.min.js"></script>
 <script>
     $(document).ready(function () {
         let part = $('#01').offset().top - 88,
@@ -314,28 +317,33 @@
                 $('.nav a').css('color', '#000');
                 $('.nav .navLeft').css('color', '#000');
             }
-        }
+        };
         scrollAuto();
         $(document).scroll(function () {
             scrollAuto();
             if (scroll < part) {
-               oLis.removeClass('curent');
-               oLis.eq(0).addClass('curent');
-            } else if ($(document).scrollTop()>= part && $(document).scrollTop() < solution) {
-               oLis.removeClass('curent');
-               oLis.eq(0).addClass('curent');
-            } else if ($(document).scrollTop() >= solution && $(document).scrollTop() < caseShow) {
-               oLis.removeClass('curent');
-               oLis.eq(1).addClass('curent');
-            } else if ($(document).scrollTop() >= solution && $(document).scrollTop() < system) {
-               oLis.removeClass('curent');
-               oLis.eq(2).addClass('curent');
-            } else if ($(document).scrollTop() >= system && $(document).scrollTop() < advantage) {
-               oLis.removeClass('curent');
-               oLis.eq(3).addClass('curent');
-            } else if ($(document).scrollTop() >= advantage) {
-               oLis.removeClass('curent');
-               oLis.eq(4).addClass('curent');
+                oLis.removeClass('curent');
+                oLis.eq(0).addClass('curent');
+            }
+            if ($(document).scrollTop() >= part && $(document).scrollTop() < solution) {
+                oLis.removeClass('curent');
+                oLis.eq(0).addClass('curent');
+            }
+            if ($(document).scrollTop() >= solution && $(document).scrollTop() < caseShow) {
+                oLis.removeClass('curent');
+                oLis.eq(1).addClass('curent');
+            }
+            if ($(document).scrollTop() >= caseShow && $(document).scrollTop() < system) {
+                oLis.removeClass('curent');
+                oLis.eq(2).addClass('curent');
+            }
+            if ($(document).scrollTop() >= system && $(document).scrollTop() < advantage) {
+                oLis.removeClass('curent');
+                oLis.eq(3).addClass('curent');
+            }
+            if ($(document).scrollTop() >= advantage) {
+                oLis.removeClass('curent');
+                oLis.eq(4).addClass('curent');
             }
         });
 
@@ -358,5 +366,51 @@
                     break;
             }
         });
+    });
+
+    certifySwiper = new Swiper('#certify .swiper-container', {
+        watchSlidesProgress: true,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        loop: true,
+        loopedSlides: 5,
+        autoplay: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        on: {
+            progress: function (progress) {
+                for (i = 0; i < this.slides.length; i++) {
+                    var slide = this.slides.eq(i);
+                    var slideProgress = this.slides[i].progress;
+                    modify = 1;
+                    if (Math.abs(slideProgress) > 1) {
+                        modify = (Math.abs(slideProgress) - 1) * 0.3 + 1;
+                    }
+                    translate = slideProgress * modify * 300 + 'px';
+                    scale = 1 - Math.abs(slideProgress) / 5;
+                    zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
+                    slide.transform('translateX(' + translate + ') scale(' + scale + ')');
+                    slide.css('zIndex', zIndex);
+                    slide.css('opacity', 1);
+                    if (Math.abs(slideProgress) > 3) {
+                        slide.css('opacity', 0);
+                    }
+                }
+            },
+            setTransition: function (transition) {
+                for (var i = 0; i < this.slides.length; i++) {
+                    var slide = this.slides.eq(i);
+                    slide.transition(transition);
+                }
+
+            }
+        }
+
     })
 </script>
